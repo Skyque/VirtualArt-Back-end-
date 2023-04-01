@@ -3,6 +3,9 @@ const app = express();
 const userRoutes = require('./api/routes/userRoutes');
 const cors = require('cors');
 const bodyParser = require('body-parser');
+const {PrismaClient} = require('@prisma/client');
+
+const prisma = new PrismaClient(); 
 
 app.use(bodyParser.json())
 app.use(express.json());

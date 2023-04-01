@@ -1,0 +1,4 @@
+En el archivo .env colocaras la base de datos con tu usuario y password
+En la terminal harás lo siguiente:
+ - npx prisma db pull (lo que hara esque revisara si el schema esta al dia)
+ - npx prisma migrate dev --name initial-migration --create-only (este agregara la migracion si la base de datos tiene ya tablas)
