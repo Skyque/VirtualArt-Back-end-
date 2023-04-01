@@ -7,3 +7,4 @@ en app.js hay un ejemplo de obtener usuarios en este caso debe salir asi:
 []
 
 fuente: https://www.prisma.io/docs/getting-started/setup-prisma/start-from-scratch/relational-databases-node-mysql
+        https://www.prisma.io/docs/guides/database/developing-with-prisma-migrate/add-prisma-migrate-to-a-project
