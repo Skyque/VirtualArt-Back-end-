@@ -1,48 +1,110 @@
+const res = require("express/lib/response");
 const { use } = require("../routes/userRoutes");
+const {PrismaClient} = require('@prisma/client');
+
+const prisma = new PrismaClient(); 
 
 class User{
 
-    constructor(pid, pusername, ppassword){
-        this.id=pid;
+    constructor(pid, pemail, pusername, ppassword, pfotoperfil){
+        this.idusuario=pid;
+        this.email=pemail;
         this.username=pusername;
-        this.password=ppassword;
-    }
-
-    //GETS
-    static getId(){
-        return this.id;
-    }
-
-    static getUsername(){
-        return this.username;
-    }
-
-    static getPassword(){
-        return this.password;
+        this.userpassword=ppassword;
+        this.fotoperfil=pfotoperfil
     }
 
     //ACTIONS
-    static login(username, password){
-        if(username == "Skyque" && password == "Mario123")
-            return 0;
+    static async login(pemail, ppassword){
+        console.log("Buscando si el usuario existe");
+        //Primero verifico si existe el usuario
+        var user = await prisma.usuario.findFirst({
+            where: {
+                email: pemail
+            }
+        });
+        if(user == null){
+            console.log("El usuario no existe");
+            return 1;
+        }
+
+        //Después si la contraseña es correcta
+        console.log("Comprabando que la contraseña coincida")
+        user = await prisma.usuario.findFirst({
+            where: {
+                email: pemail,
+                userpassword: ppassword
+            }
+        });
+        var userLogged = new User(0,"","","", "");
+        userLogged=user;
+
+        console.log(userLogged);
+        if(userLogged != null)
+            return userLogged;
+        else
+            return 2;
+    }
+
+    static async findAll() {
+        var user = await prisma.usuario.findMany();
+        var userLogged = new User(0,"","","",  "");
+        userLogged=user;
+
+        console.log(userLogged);
+        if(userLogged != null)
+            return userLogged;
         else
             return 1;
     }
+    
+    static async findById(id) {
+        var user = await prisma.usuario.findFirst({
+            where: {
+                idusuario: parseInt(id)
+            },
+        });
+        var userLogged = new User(0,"","","", "");
+        userLogged=user;
 
-    static findAll() {
-        // Código para recuperar todos los usuarios de una base de datos o un archivo
+        console.log(userLogged);
+        if(userLogged != null)
+            return userLogged;
+        else
+            return 1;
     }
     
-    static findById(id) {
-        // Código para recuperar un usuario específico de una base de datos o un archivo
+    static async create(data) {
+        var returnUser = new User(0, data.email, data.username, data.password, "");
+
+        const result =  await  prisma.usuario.create({
+            data: {
+                username: data.username,
+                userpassword: data.password,
+                email: data.email
+            }
+        });
+        
+        returnUser=result;
+        return returnUser;
     }
     
-    static create(data) {
-        // Código para crear un nuevo usuario en una base de datos o un archivo
-    }
-    
-    static update(id, data) {
-        // Código para actualizar un usuario específico en una base de datos o un archivo
+    static async update(id, data) {
+        var returnUser = new User(0, data.email, data.username, data.password, "");
+
+        const result =  await  prisma.usuario.update({
+            where:{
+                idusuario: parseInt(id)
+            },
+            data: {
+                username: data.username,
+                userpassword: data.password,
+                email: data.email
+            }
+        });
+        
+        returnUser=result;
+        return returnUser;
     }
     
     static delete(id) {

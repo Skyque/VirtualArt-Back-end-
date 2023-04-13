@@ -10,6 +10,7 @@ datasource db {
 model categorias {
   idcategorias  Int             @id @unique(map: "idcategorias") @default(autoincrement())
   nombre        String          @db.VarChar(45)
+  imagen        Bytes           @db.MediumBlob
   publicaciones publicaciones[]
 }
 
@@ -90,7 +91,7 @@ model usuario {
   username               String                   @db.VarChar(45)
   email                  String                   @db.VarChar(45)
   userpassword           String                   @db.VarChar(8)
-  fotoperfil             Bytes                    @db.MediumBlob
+  fotoperfil             String?                  @db.VarChar(350)
   comentarios            comentarios[]
   publicaciones          publicaciones[]
   publicacionesguardadas publicacionesguardadas[]

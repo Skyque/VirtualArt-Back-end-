@@ -3,38 +3,50 @@ const { use } = require('../routes/userRoutes');
 
 //Nota: Cambiar los nombres de las variables después para mejor contexto (userOBJ)
 
-exports.login=(req, res) => {
-    const username = req.body.username;
+exports.login = async (req, res) => {
+    const email = req.body.email;
     const password = req.body.password;
-    const response = User.login(username, password);
-    if(response == 0)
-      res.status(200).json({mensaje: "Bienvenido " + username});
+    const response = await User.login(email, password);
+    if (response == 1)
+      res.status(404).json({response: "El usuario no existe"}); 
+    else if (response == 2)
+      res.status(401).json({response: "Credenciales incorrectas"}); 
     else
-      res.status(401).json({error: "Credenciales incorrectas"}); 
+    res.status(200).json(response);
 };
 
-exports.findAll = (req, res) => {
-  const userOBJ = User.findAll();
-  res.json(products);
-
+exports.findAll = async (req, res) => {
+  const userOBJ = await User.findAll();
+  if(userOBJ == 1)
+    res.status(500).json({response: "Hubo un prblema al buscar los usuarios"});
+  else
+    res.status(200).json(userOBJ);
 };
 
-exports.findById = (req, res) => {
+exports.findById = async (req, res) => {
   const id = req.params.id;
-  const userOBJ = User.findById(id);
-  res.json(userOBJ);
+  console.log("Voy a buscar al usuario: "+ id);
+  const userOBJ = await User.findById(id);
+  if(userOBJ == 1)
+    res.status(500).json({response: "El usuario que inició sesió no pudo ser encontrado"});
+  else
+    res.status(200).json(userOBJ);
 };
 
-exports.create = (req, res) => {
+exports.create = async (req, res) => {
   const data = req.body;
-  const userOBJ = User.create(data);
-  res.json(userOBJ);
+  const userOBJ = await User.create(data);
+  console.log(userOBJ);
+  if(userOBJ == null)
+    res.status(500).json({error: "Ocurrió un problema al crear el usuario"});
+  else
+    res.status(200).json(userOBJ);
 };
 
-exports.update = (req, res) => {
+exports.update = async (req, res) => {
   const id = req.params.id;
   const data = req.body;
-  const userOBJ = User.update(id, data);
+  const userOBJ = await User.update(id, data);
   res.json(userOBJ);
 };
 
