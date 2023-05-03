@@ -35,7 +35,7 @@ class Tableros{
                 idtablero: parseInt(id)
             },
         });
-        var tableroLoaded = new Tablero(0,"","","","");
+        var tableroLoaded = new Tableros(0,"","","","");
         tableroLoaded=tableros;
 
         console.log(tableroLoaded);
@@ -74,7 +74,6 @@ class Tableros{
         return result;  
     }
 
-
     static async create(data) {
         var returnTabC = new Tableros(0, data.title, data.privacity, data.user,"");
 
@@ -108,9 +107,6 @@ class Tableros{
         return returnTab;
     }
     
-    static delete(id) {
-        // Código para eliminar un usuario específico de una base de datos o un archivo
-    }
 }
 
 module.exports = Tableros;

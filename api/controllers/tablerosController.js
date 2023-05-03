@@ -54,3 +54,4 @@ exports.findAll = async (req, res) => {
     const tableroOBJ = await User.update(id, data);
     res.json(tableroOBJ);
   };
+
