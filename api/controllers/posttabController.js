@@ -1,5 +1,5 @@
 const PostTab = require('../models/postTab');
-const { use } = require('../routes/tablerosRoutes');
+const { use } = require('../routes/posttabRoutes');
 
 exports.findAll = async (req, res) => {
     const postabOBJ = await PostTab.findAll();
