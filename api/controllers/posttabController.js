@@ -38,3 +38,12 @@ exports.findAll = async (req, res) => {
       res.status(200).json(postabOBJ);
   };
 
+
+  exports.findAllPostInTableros = async (req, res) => {
+    const id = req.params.id;
+    const postabOBJ = await PostTab.findAllPostInTableros(id);
+    if(postabOBJ == 1)
+      res.status(500).json({response: "Hubo un prblema al buscar las publicaciones del tablero"});
+    else
+      res.status(200).json(postabOBJ);
+  };
