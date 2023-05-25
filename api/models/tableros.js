@@ -94,12 +94,12 @@ class Tableros{
 
         const result =  await prisma.tablero.update({
             where:{
-                idtableros: parseInt(id)
+                idtablero: parseInt(id)
             },
             data: {
                 nombre: data.username,
-                privacidad: data.privacity,
-                idusuario: data.user
+                privacidad: parseInt(data.privacity),
+                idusuario: parseInt(data.user)
             }
         });
         
