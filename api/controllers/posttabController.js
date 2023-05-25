@@ -56,3 +56,12 @@ exports.findAll = async (req, res) => {
     else
       res.status(200).json(postabOBJ);
   }
+
+  exports.deleteposttablero = async(req,res)=>{
+    const id = req.params.id;
+    const postabOBJ = await PostTab.deleteposttablero(id);
+    if(postabOBJ == 1)
+      res.status(500).json({response: "No se elimino correctamente la publicacion en el tablero"});
+    else
+      res.status(200).json(postabOBJ);
+  }

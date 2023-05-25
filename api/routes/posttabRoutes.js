@@ -14,6 +14,7 @@ router.post('/posttablero/create', posttabCtrl.create);
 router.get('/posttablero/:id', posttabCtrl.findById);
 router.get('/posttablero/posts/:id', posttabCtrl.findAllPostInTableros);
 router.delete('/posttablero/:id',posttabCtrl.deletetablero);
+router.delete('/posttablero/publi/:id',posttabCtrl.deleteposttablero);
 
 
 module.exports = router;
