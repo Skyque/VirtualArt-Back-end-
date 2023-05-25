@@ -53,6 +53,11 @@ exports.findAll = async (req, res) => {
     const data = req.body;
     const tableroOBJ = await Tableros.update(id, data);
     res.json(tableroOBJ);
+
+    if(tableroOBJ == null)
+      res.status(500).json({error: "Ocurrió un problema al actualizar el tablero del usuario"});
+    else
+      res.status(200).json(tableroOBJ);
   };
 
   exports.deletetab = async(req,res)=>{
