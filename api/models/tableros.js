@@ -106,6 +106,17 @@ class Tableros{
         returnTabC=result;
         return returnTabC;
     }
+
+    static async deletetab(id){
+        const result =  await prisma.tablero.delete({
+            where:{
+               idtablero: parseInt(id),
+            },
+        });
+
+        console.log(result);
+        return result;
+    }
     
 }
 

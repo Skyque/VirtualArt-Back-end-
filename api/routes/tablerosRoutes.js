@@ -32,6 +32,7 @@ router.post('/tableros/create', tabCtrl.create);
 router.get('/tableros/:id', tabCtrl.findById);
 router.get('/tableros/user/:id', tabCtrl.getUserTableros);
 router.put('/tableros/:id', tabCtrl.update);
+router.delete('/tableros/:id',tabCtrl.deletetab);
 
 
 router.post('/tableros/imgtablero', upload.single("imgtablero"), (req, res) => {

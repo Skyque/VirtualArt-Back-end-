@@ -47,3 +47,12 @@ exports.findAll = async (req, res) => {
     else
       res.status(200).json(postabOBJ);
   };
+
+  exports.deletetablero = async(req,res)=>{
+    const id = req.params.id;
+    const postabOBJ = await PostTab.deletetablero(id);
+    if(postabOBJ == 1)
+      res.status(500).json({response: "No se elimino correctamente el tablero en la relacion"});
+    else
+      res.status(200).json(postabOBJ);
+  }
