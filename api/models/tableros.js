@@ -90,21 +90,21 @@ class Tableros{
     }
     
     static async update(id, data) {
-        var returnTab = new Tableros(0, data.title, data.privacity, data.user,"");
+        var returnTabC = new Tableros(0, data.title, data.privacity, data.user,"");
 
         const result =  await prisma.tablero.update({
             where:{
-                idtablero: parseInt(id)
+               idtablero: parseInt(id),
             },
             data: {
-                nombre: data.username,
+                nombre: data.title,
                 privacidad: parseInt(data.privacity),
                 idusuario: parseInt(data.user)
             }
         });
         
-        returnTab=result;
-        return returnTab;
+        returnTabC=result;
+        return returnTabC;
     }
     
 }
