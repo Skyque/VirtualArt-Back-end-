@@ -145,6 +145,86 @@ class Post{
         returnUser=result;
         return returnUser;
     }
+
+    static async verifyIfPostIsSaved(data){
+        const result = await prisma.publicacionesguardadas.findFirst({
+            where:{
+                idusuario: parseInt(data.user),
+                idpublicacion: parseInt(data.post)
+            }
+        });
+        return result;
+    }
+
+    static async savePost(data){
+        const result =  await  prisma.publicacionesguardadas.create({
+            data: {
+                idusuario: parseInt(data.user),
+                idpublicacion: parseInt(data.post)
+            }
+        });
+        
+        return result;
+    }
+
+    static async getSavedPosts(id){
+        const result =  await  prisma.publicacionesguardadas.findMany({
+            where: {
+                idusuario: parseInt(id),
+            }
+        });
+        
+        return result;
+    }
+
+    static async getComments(id){
+        var comments = await prisma.comentarios.findMany({
+            where: {
+                idpublicacion: parseInt(id)
+            },
+        });
+        var commentsReturn = comments;
+
+        console.log(commentsReturn);
+        if(commentsReturn != null)
+            return commentsReturn;
+        else
+            return 1;
+    }
+
+    static async comment(data){
+        const result =  await  prisma.comentarios.create({
+            data: {
+                descripcion: data.description,
+                fecha: data.date,
+                idusuario: parseInt(data.user),
+                idpublicacion: parseInt(data.post)
+            }
+        });
+        
+        return result;
+    }
+
+    static async makeASearch(string){
+        var result = await  prisma.publicaciones.findMany({
+            where:{
+                OR:[
+                    {
+                        titulo:{
+                            contains: string
+                        }
+                    },
+                    {
+                        descripcion:{
+                            contains: string
+                        }
+                    }
+                ]
+            }
+        });
+
+        return result
+    }
     
     static delete(id) {
         // Código para eliminar un usuario específico de una base de datos o un archivo

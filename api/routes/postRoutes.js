@@ -61,5 +61,10 @@ router.get('/post/image/:id', (req, res) => {
         res.status(404);
     }
 });
+router.get('/post/comment/:id', postCtrl.getComments);
+router.post('/post/comment', postCtrl.comment);
+router.post('/post/saved', postCtrl.savePost);
+router.get('/post/saved/:id', postCtrl.getSavedPosts);
+router.get('/post/search/:string', postCtrl.makeASearch);
 
 module.exports = router;

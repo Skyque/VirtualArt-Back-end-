@@ -74,3 +74,59 @@ exports.findAllCategories = async (req, res) => {
     else
       res.status(200).json(postOBJ);
   };
+
+  exports.savePost = async (req, res) => {
+    const data = req.body;
+    //Verificar si el post ya está guardado por este usuario
+    const response = await Post.verifyIfPostIsSaved(data);
+    if(response == null){
+      const postOBJ = await Post.savePost(data);
+      console.log(postOBJ);
+      if(postOBJ == null)
+        res.status(500).json({error: "Ocurrió un problema al guardar la publicación"});
+      else
+        res.status(200).json(postOBJ);
+    }
+    else
+      res.status(200).json({error: "El usuario ya guardó esta publicacioón"});
+  };
+
+  exports.getSavedPosts = async (req, res) => {
+    const id = req.params.id;
+    //console.log("Voy a buscar la publicación: "+ id);
+    const commentOBJ = await Post.getSavedPosts(id);
+    if(commentOBJ == 1)
+      res.status(500).json({response: "No se encontraron publicaciones guardadas"});
+    else
+      res.status(200).json(commentOBJ);
+  };
+
+  exports.comment = async (req, res) => {
+    const data = req.body;
+    const commentOBJ = await Post.comment(data);
+    console.log(commentOBJ);
+    if(commentOBJ == null)
+      res.status(500).json({error: "Ocurrió un problema al crear el comentario"});
+    else
+      res.status(200).json(commentOBJ);
+  };
+
+  exports.getComments = async (req, res) => {
+    const id = req.params.id;
+    console.log("Voy a buscar la publicación: "+ id);
+    const commentOBJ = await Post.getComments(id);
+    if(commentOBJ == 1)
+      res.status(500).json({response: "No se encontrron comentarios"});
+    else
+      res.status(200).json(commentOBJ);
+  };
+
+  exports.makeASearch = async (req, res) =>{
+    const string = req.params.string;
+    const postOBJ = await Post.makeASearch(string);
+    console.log(postOBJ);
+    if(postOBJ == null)
+      res.status(500).json({error: "Ocurrió un problema al buscar las publicaciones"});
+    else
+      res.status(200).json(postOBJ);
+  };
