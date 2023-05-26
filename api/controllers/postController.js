@@ -167,8 +167,4 @@ exports.findAllCategories = async (req, res) => {
     const PostOBJ = await Post.updatePost(id, data);
     res.json(PostOBJ);
 
-    if(PostOBJ == null)
-      res.status(500).json({error: "Ocurrió un problema al actualizar la publicacion del usuario"});
-    else
-      res.status(200).json(PostOBJ);
-  }
+  };
