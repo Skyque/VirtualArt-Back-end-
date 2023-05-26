@@ -130,3 +130,45 @@ exports.findAllCategories = async (req, res) => {
     else
       res.status(200).json(postOBJ);
   };
+
+  exports.deletePost = async (req,res) => {
+    const id = req.params.id;
+    const postOBJ = await Post.deletePost(id);
+    console.log(postOBJ);
+    if(postOBJ == null)
+      res.status(500).json({error: "Ocurrió un problema al eliminar la publicacion del usuario"});
+    else
+      res.status(200).json(postOBJ);
+  };
+
+  exports.deleteCommentPost = async (req,res) => {
+    const id = req.params.id;
+    const postOBJ = await Post.deleteCommentPost(id);
+    console.log(postOBJ);
+    if(postOBJ == null)
+      res.status(500).json({error: "Ocurrió un problema al eliminar la publicacion en la tabla comentarios"});
+    else
+      res.status(200).json(postOBJ);
+  };
+
+  exports.deleteSavedPost = async (req,res) => {
+    const id = req.params.id;
+    const postOBJ = await Post.deleteSavedPost(id);
+    console.log(postOBJ);
+    if(postOBJ == null)
+      res.status(500).json({error: "Ocurrió un problema al eliminar la publicacion en la tabla de guardados"});
+    else
+      res.status(200).json(postOBJ);
+  };
+
+  exports.updatePost = async (req,res) => {
+    const id = req.params.id;
+    const data = req.body;
+    const PostOBJ = await Post.updatePost(id, data);
+    res.json(PostOBJ);
+
+    if(PostOBJ == null)
+      res.status(500).json({error: "Ocurrió un problema al actualizar la publicacion del usuario"});
+    else
+      res.status(200).json(PostOBJ);
+  }

@@ -45,6 +45,13 @@ router.get('/post/:id', postCtrl.findById);
 router.get('/post/user/:id', postCtrl.getUserPosts);
 router.get('/post/category/:id', postCtrl.getCategoryPosts);
 router.post('/post', postCtrl.create);
+
+router.delete('/post/:id', postCtrl.deletePost);
+router.delete('/post/comment/:id', postCtrl.deleteCommentPost);
+router.delete('/post/saved/:id', postCtrl.deleteSavedPost);
+
+router.put('/post/:id', postCtrl.updatePost);
+
 router.post('/post/image', upload.single("image"), (req, res) => {
     res.send("Imagen guardada");
 });

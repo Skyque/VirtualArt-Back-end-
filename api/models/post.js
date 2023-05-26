@@ -226,8 +226,56 @@ class Post{
         return result
     }
     
-    static delete(id) {
-        // Código para eliminar un usuario específico de una base de datos o un archivo
+    static async deletePost(id) {
+        const result =  await prisma.publicaciones.delete({
+            where:{
+                idpublicaciones: parseInt(id)
+            },
+        });
+
+        console.log(result);
+        return result;
+    }
+
+    static async deleteCommentPost(id) {
+        const result =  await prisma.comentarios.deleteMany({
+            where:{
+                idpublicacion: parseInt(id)
+            },
+        });
+
+        console.log(result);
+        return result;
+    }
+
+    static async deleteSavedPost(id) {
+        const result =  await prisma.publicacionesguardadas.deleteMany({
+            where:{
+                idpublicacion: parseInt(id)
+            },
+        });
+
+        console.log(result);
+        return result;
+    }
+
+    static async updatePost(id,data){
+        var returnPost = new Post(0, data.title, data.description, data.category, data.user);
+
+        const result =  await  prisma.publicaciones.update({
+            where:{
+                idpublicaciones: parseInt(id),
+            },
+            data: {
+                titulo: data.title,
+                descripcion: data.description,
+                idcategoria: parseInt(data.category),
+                idusuario: parseInt(data.user)
+            }
+        });
+        
+        returnPost=result;
+        return returnPost;
     }
 }
 
