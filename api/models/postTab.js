@@ -114,6 +114,27 @@ class PostTab {
 
     }
 
+    static async deletetablero(id){
+        var result = await prisma.publicacionestablero.deleteMany({
+            where: {
+                idtablero: parseInt(id),
+            }
+        });
+
+        console.log(result);
+        return result;
+    }
+
+    static async deleteposttablero(id){
+        var result = await prisma.publicacionestablero.deleteMany({
+            where: {
+                idpublicacion: parseInt(id),
+            }
+        });
+
+        console.log(result);
+        return result;
+    }
 
     }
 

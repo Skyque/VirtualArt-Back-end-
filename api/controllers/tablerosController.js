@@ -51,7 +51,22 @@ exports.findAll = async (req, res) => {
   exports.update = async (req, res) => {
     const id = req.params.id;
     const data = req.body;
-    const tableroOBJ = await User.update(id, data);
+    const tableroOBJ = await Tableros.update(id, data);
     res.json(tableroOBJ);
+
+    if(tableroOBJ == null)
+      res.status(500).json({error: "Ocurrió un problema al actualizar el tablero del usuario"});
+    else
+      res.status(200).json(tableroOBJ);
   };
+
+  exports.deletetab = async(req,res)=>{
+    const id = req.params.id;
+    const tableroOBJ = await Tableros.deletetab(id);
+    console.log(tableroOBJ);
+    if(tableroOBJ == null)
+      res.status(500).json({error: "Ocurrió un problema al eliminar el tablero del usuario"});
+    else
+      res.status(200).json(tableroOBJ);
+  }
 

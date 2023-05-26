@@ -90,21 +90,32 @@ class Tableros{
     }
     
     static async update(id, data) {
-        var returnTab = new Tableros(0, data.title, data.privacity, data.user,"");
+        var returnTabC = new Tableros(0, data.title, data.privacity, data.user,"");
 
         const result =  await prisma.tablero.update({
             where:{
-                idtableros: parseInt(id)
+               idtablero: parseInt(id),
             },
             data: {
-                nombre: data.username,
-                privacidad: data.privacity,
-                idusuario: data.user
+                nombre: data.title,
+                privacidad: parseInt(data.privacity),
+                idusuario: parseInt(data.user)
             }
         });
         
-        returnTab=result;
-        return returnTab;
+        returnTabC=result;
+        return returnTabC;
+    }
+
+    static async deletetab(id){
+        const result =  await prisma.tablero.delete({
+            where:{
+               idtablero: parseInt(id),
+            },
+        });
+
+        console.log(result);
+        return result;
     }
     
 }

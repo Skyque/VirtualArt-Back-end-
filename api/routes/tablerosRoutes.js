@@ -28,9 +28,11 @@ const upload = multer({storage: avatarStorage});
 
 router.get('/tableros', tabCtrl.findAll);
 router.get('/tableros/last', tabCtrl.getLast);
-router.post('/tableros/create', tabCtrl.create);
+router.post('/tableros', tabCtrl.create);
 router.get('/tableros/:id', tabCtrl.findById);
 router.get('/tableros/user/:id', tabCtrl.getUserTableros);
+router.put('/tableros/:id', tabCtrl.update);
+router.delete('/tableros/:id',tabCtrl.deletetab);
 
 
 router.post('/tableros/imgtablero', upload.single("imgtablero"), (req, res) => {
