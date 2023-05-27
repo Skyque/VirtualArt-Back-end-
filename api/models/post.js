@@ -112,6 +112,16 @@ class Post{
         return result;  
     }
 
+    static async postCategory(data){
+        const result = await prisma.categorias.create({
+             data:{
+                nombre: data.name
+             }
+        });
+
+        return result;
+    }
+
     static async create(data) {
         var returnPost = new Post(0, data.title, data.description, data.category, data.user);
 

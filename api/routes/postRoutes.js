@@ -26,6 +26,7 @@ const avatarStorage = multer.diskStorage({
 const upload = multer({storage: avatarStorage});
 
 //Categorías
+router.post('/categories',postCtrl.postCategory);
 router.get('/categories', postCtrl.findAllCategories);
 router.get('/categories/:id', postCtrl.findCategoriesById);
 router.get('/categories/image/:id', (req, res) => {

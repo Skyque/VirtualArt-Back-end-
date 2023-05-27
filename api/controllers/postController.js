@@ -65,6 +65,16 @@ exports.findAllCategories = async (req, res) => {
       res.status(200).json(postOBJ);
   };
 
+  exports.postCategory = async (req,res) => {
+         const data = req.body;
+         const categoryOBJ = await Post.postCategory(data);
+         console.log(categoryOBJ);
+         if(categoryOBJ == null)
+      res.status(500).json({error: "Ocurrió un problema al crear la categoria"});
+    else
+      res.status(200).json(categoryOBJ);
+  };
+
   exports.create = async (req, res) => {
     const data = req.body;
     const postOBJ = await Post.create(data);
